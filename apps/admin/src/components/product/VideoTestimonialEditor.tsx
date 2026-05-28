@@ -1,0 +1,1 @@
+export function VideoTestimonialEditor() { return <div>Video Testimonial Editor</div>; }

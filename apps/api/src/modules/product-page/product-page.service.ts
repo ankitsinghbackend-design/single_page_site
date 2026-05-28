@@ -1,0 +1,93 @@
+import { db } from '../../config/db';
+import { productPages } from '../../db/schema';
+import { eq } from 'drizzle-orm';
+import { ProductPageSchema, ProductPageType } from '@corevita/shared';
+
+export const productPageService = {
+  async getConfig(siteId: string) {
+    const record = await db.query.productPages.findFirst({
+      where: eq(productPages.siteId, siteId),
+    });
+
+    if (!record) {
+      const error = new Error('Product page config not found');
+      (error as any).statusCode = 404;
+      throw error;
+    }
+
+    // Map database properties (which may be null initially) to return schema shape
+    return {
+      productName: record.productName,
+      price: record.price ? parseFloat(record.price) : null,
+      originalPrice: record.originalPrice ? parseFloat(record.originalPrice) : null,
+      stockBadge: record.stockBadge,
+      description: record.descriptionJson !== null ? record.descriptionJson : null,
+      benefits: record.benefitsJson || null,
+      pricingOptions: record.pricingOptionsJson || null,
+      autoRefillEnabled: record.autoRefillEnabled,
+      autoRefillLabel: record.autoRefillLabel,
+      whyModernFood: record.whyModernFoodJson || null,
+      naturesGold: record.naturesGoldJson || null,
+      videoTestimonials: record.videoTestimonialsJson || null,
+      textReviews: record.textReviewsJson || null,
+      testimonialSectionHeading: record.testimonialSectionHeading,
+    };
+  },
+
+  async upsertConfig(siteId: string, payload: ProductPageType) {
+    // Validate payload against schema
+    const validated = ProductPageSchema.parse(payload);
+
+    const updateValues = {
+      productName: validated.productName,
+      price: validated.price.toString(),
+      originalPrice: validated.originalPrice.toString(),
+      stockBadge: validated.stockBadge,
+      descriptionJson: validated.description,
+      benefitsJson: validated.benefits,
+      pricingOptionsJson: validated.pricingOptions,
+      autoRefillEnabled: validated.autoRefillEnabled,
+      autoRefillLabel: validated.autoRefillLabel,
+      whyModernFoodJson: validated.whyModernFood,
+      naturesGoldJson: validated.naturesGold,
+      videoTestimonialsJson: validated.videoTestimonials,
+      textReviewsJson: validated.textReviews,
+      testimonialSectionHeading: validated.testimonialSectionHeading,
+      updatedAt: new Date(),
+    };
+
+    const [updated] = await db
+      .update(productPages)
+      .set(updateValues)
+      .where(eq(productPages.siteId, siteId))
+      .returning();
+
+    const resultRecord = updated || (
+      await db
+        .insert(productPages)
+        .values({ siteId, ...updateValues })
+        .onConflictDoUpdate({
+          target: productPages.siteId,
+          set: updateValues,
+        })
+        .returning()
+    )[0];
+
+    return {
+      productName: resultRecord.productName,
+      price: resultRecord.price ? parseFloat(resultRecord.price) : 0,
+      originalPrice: resultRecord.originalPrice ? parseFloat(resultRecord.originalPrice) : 0,
+      stockBadge: resultRecord.stockBadge,
+      description: resultRecord.descriptionJson,
+      benefits: resultRecord.benefitsJson,
+      pricingOptions: resultRecord.pricingOptionsJson,
+      autoRefillEnabled: resultRecord.autoRefillEnabled,
+      autoRefillLabel: resultRecord.autoRefillLabel,
+      whyModernFood: resultRecord.whyModernFoodJson,
+      naturesGold: resultRecord.naturesGoldJson,
+      videoTestimonials: resultRecord.videoTestimonialsJson,
+      textReviews: resultRecord.textReviewsJson,
+      testimonialSectionHeading: resultRecord.testimonialSectionHeading,
+    };
+  },
+};

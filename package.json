@@ -1,7 +1,11 @@
 {
   "name": "corevita-cms",
   "private": true,
-  "packageManager": "pnpm@9.0.0",
+  "packageManager": "npm@10.8.2",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",

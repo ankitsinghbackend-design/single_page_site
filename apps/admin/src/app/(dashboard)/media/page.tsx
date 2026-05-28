@@ -1,0 +1,1 @@
+export default function GlobalMediaPage() { return <div>Global Media</div>; }
