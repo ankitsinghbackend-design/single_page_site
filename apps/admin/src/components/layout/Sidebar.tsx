@@ -33,7 +33,7 @@ export function Sidebar() {
   ] : [];
 
   const navGroups = siteId 
-    ? [{ title: \`Site: \${site?.name || 'Loading...'}\`, items: siteNav }] 
+    ? [{ title: `Site: ${site?.name || 'Loading...'}`, items: siteNav }] 
     : [{ title: 'General', items: generalNav }];
 
   return (

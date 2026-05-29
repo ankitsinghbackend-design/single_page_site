@@ -6,72 +6,70 @@ import { CreateSiteType, UpdateSiteType } from '@corevita/shared';
 
 export const sitesService = {
   async createSite(data: CreateSiteType) {
-    return await db.transaction(async (tx) => {
-      // Check if slug is already taken
-      const existing = await tx.query.sites.findFirst({
-        where: eq(sites.slug, data.slug)
-      });
-      if (existing) {
-        throw new Error(`Slug '${data.slug}' is already taken`);
-      }
-
-      const [newSite] = await tx.insert(sites).values({
-        name: data.name,
-        slug: data.slug,
-        description: data.description || null,
-        status: data.status,
-      }).returning();
-
-      // Insert default empty configurations for all modules
-      await tx.insert(landingPages).values({
-        siteId: newSite.id,
-        announcementBarJson: null,
-        heroJson: null,
-        statsJson: null,
-        reviewsHeading: null
-      });
-
-      await tx.insert(productPages).values({
-        siteId: newSite.id,
-        productName: null,
-        price: null,
-        originalPrice: null,
-        stockBadge: null,
-        descriptionJson: null,
-        benefitsJson: null,
-        pricingOptionsJson: null,
-        autoRefillEnabled: false,
-        autoRefillLabel: null,
-        whyModernFoodJson: null,
-        naturesGoldJson: null,
-        videoTestimonialsJson: null,
-        textReviewsJson: null,
-        testimonialSectionHeading: null
-      });
-
-      await tx.insert(contactPages).values({
-        siteId: newSite.id,
-        heading: null,
-        submitLabel: null,
-        successMessage: null,
-        fieldsJson: null
-      });
-
-      await tx.insert(trackOrderPages).values({
-        siteId: newSite.id,
-        heading: null,
-        subheading: null,
-        trackingProviderUrl: null,
-        supportEmail: null
-      });
-
-      await tx.insert(footerConfigs).values({
-        siteId: newSite.id,
-        footerJson: null
-      });
-
-      return newSite;
+    // Check if slug is already taken
+    const existing = await db.query.sites.findFirst({
+      where: eq(sites.slug, data.slug)
     });
+    if (existing) {
+      throw new Error(`Slug '${data.slug}' is already taken`);
+    }
+
+    const [newSite] = await db.insert(sites).values({
+      name: data.name,
+      slug: data.slug,
+      description: data.description || null,
+      status: data.status,
+    }).returning();
+
+    // Insert default empty configurations for all modules
+    await db.insert(landingPages).values({
+      siteId: newSite.id,
+      announcementBarJson: null,
+      heroJson: null,
+      statsJson: null,
+      reviewsHeading: null
+    });
+
+    await db.insert(productPages).values({
+      siteId: newSite.id,
+      productName: null,
+      price: null,
+      originalPrice: null,
+      stockBadge: null,
+      descriptionJson: null,
+      benefitsJson: null,
+      pricingOptionsJson: null,
+      autoRefillEnabled: false,
+      autoRefillLabel: null,
+      whyModernFoodJson: null,
+      naturesGoldJson: null,
+      videoTestimonialsJson: null,
+      textReviewsJson: null,
+      testimonialSectionHeading: null
+    });
+
+    await db.insert(contactPages).values({
+      siteId: newSite.id,
+      heading: null,
+      submitLabel: null,
+      successMessage: null,
+      fieldsJson: null
+    });
+
+    await db.insert(trackOrderPages).values({
+      siteId: newSite.id,
+      heading: null,
+      subheading: null,
+      trackingProviderUrl: null,
+      supportEmail: null
+    });
+
+    await db.insert(footerConfigs).values({
+      siteId: newSite.id,
+      footerJson: null
+    });
+
+    return newSite;
   },
 
   async listSites(page = 1, pageSize = 20) {

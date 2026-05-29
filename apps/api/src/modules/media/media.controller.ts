@@ -20,6 +20,7 @@ export const mediaController = {
 
       res.json({ success: true, data: newMedia });
     } catch (error: any) {
+      console.error('[Media Upload Error]', error.message, error.stack);
       res.status(500).json({ success: false, error: error.message });
     }
   },

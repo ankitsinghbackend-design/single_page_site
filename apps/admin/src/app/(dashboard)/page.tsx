@@ -112,7 +112,7 @@ export default function DashboardHome() {
                 sites.map((site: any) => (
                   <TableRow key={site.id}>
                     <TableCell className="font-medium">
-                      <Link href={\`/sites/\${site.id}\`} className="hover:underline hover:text-primary">
+                      <Link href={`/sites/${site.id}`} className="hover:underline hover:text-primary">
                         {site.name}
                       </Link>
                       <div className="text-xs text-neutral-500">/{site.slug}</div>
@@ -127,10 +127,10 @@ export default function DashboardHome() {
                     </TableCell>
                     <TableCell className="text-right">
                       <div className="flex justify-end gap-2">
-                        <Link href={\`/sites/\${site.id}/landing-page\`}>
+                        <Link href={`/sites/${site.id}/landing-page`}>
                           <Button variant="ghost" size="sm" className="h-8 px-2 text-neutral-500"><FileText className="h-4 w-4" /></Button>
                         </Link>
-                        <Link href={\`/sites/\${site.id}/product-page\`}>
+                        <Link href={`/sites/${site.id}/product-page`}>
                           <Button variant="ghost" size="sm" className="h-8 px-2 text-neutral-500"><ShoppingCart className="h-4 w-4" /></Button>
                         </Link>
                       </div>

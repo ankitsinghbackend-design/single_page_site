@@ -103,7 +103,7 @@ export function ProductPageForm({ siteId, initialData, isLoading }: ProductPageF
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 pb-24">
-        <Accordion type="multiple" defaultValue={["basics"]} className="w-full">
+        <Accordion multiple defaultValue={["basics", "benefits", "pricing", "refill", "modern-food", "natures-gold", "video-testimonials", "text-reviews"]} className="w-full">
 
           {/* SECTION 1: Product Basics */}
           <AccordionItem value="basics" className="border bg-white rounded-lg mb-4 px-4">
@@ -138,10 +138,10 @@ export function ProductPageForm({ siteId, initialData, isLoading }: ProductPageF
                   {benefits.fields.map((field, index) => (
                     <SortableItemWrapper key={field.id} id={field.id}>
                       <div className="flex items-center gap-4 w-full">
-                        <FormField control={form.control} name={\`benefits.\${index}.icon\`} render={({ field }) => (
+                        <FormField control={form.control} name={`benefits.${index}.icon`} render={({ field }) => (
                           <FormItem className="flex-1"><FormLabel>Icon (Lucide Name)</FormLabel><FormControl><Input {...field} placeholder="CheckCircle" /></FormControl></FormItem>
                         )} />
-                        <FormField control={form.control} name={\`benefits.\${index}.text\`} render={({ field }) => (
+                        <FormField control={form.control} name={`benefits.${index}.text`} render={({ field }) => (
                           <FormItem className="flex-[3]"><FormLabel>Benefit Text</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
                         )} />
                         <Button type="button" variant="ghost" size="icon" className="mt-8 text-red-500" onClick={() => benefits.remove(index)}>
@@ -167,22 +167,22 @@ export function ProductPageForm({ siteId, initialData, isLoading }: ProductPageF
                   {pricingOptions.fields.map((field, index) => (
                     <SortableItemWrapper key={field.id} id={field.id}>
                       <div className="grid grid-cols-2 gap-4 w-full">
-                        <FormField control={form.control} name={\`pricingOptions.\${index}.label\`} render={({ field }) => (
+                        <FormField control={form.control} name={`pricingOptions.${index}.label`} render={({ field }) => (
                           <FormItem><FormLabel>Label</FormLabel><FormControl><Input {...field} placeholder="Buy 1 + Get 1 FREE" /></FormControl><FormMessage /></FormItem>
                         )} />
-                        <FormField control={form.control} name={\`pricingOptions.\${index}.badge\`} render={({ field }) => (
+                        <FormField control={form.control} name={`pricingOptions.${index}.badge`} render={({ field }) => (
                           <FormItem><FormLabel>Badge (Optional)</FormLabel><FormControl><Input {...field} placeholder="Most Popular" /></FormControl></FormItem>
                         )} />
-                        <FormField control={form.control} name={\`pricingOptions.\${index}.price\`} render={({ field }) => (
+                        <FormField control={form.control} name={`pricingOptions.${index}.price`} render={({ field }) => (
                           <FormItem><FormLabel>Price</FormLabel><FormControl><Input type="number" {...field} onChange={e => field.onChange(parseFloat(e.target.value)||0)} /></FormControl><FormMessage /></FormItem>
                         )} />
-                        <FormField control={form.control} name={\`pricingOptions.\${index}.originalPrice\`} render={({ field }) => (
+                        <FormField control={form.control} name={`pricingOptions.${index}.originalPrice`} render={({ field }) => (
                           <FormItem><FormLabel>Original Price</FormLabel><FormControl><Input type="number" {...field} onChange={e => field.onChange(parseFloat(e.target.value)||0)} /></FormControl><FormMessage /></FormItem>
                         )} />
-                        <FormField control={form.control} name={\`pricingOptions.\${index}.savePct\`} render={({ field }) => (
+                        <FormField control={form.control} name={`pricingOptions.${index}.savePct`} render={({ field }) => (
                           <FormItem><FormLabel>Save Percentage</FormLabel><FormControl><Input type="number" {...field} onChange={e => field.onChange(parseInt(e.target.value)||0)} /></FormControl><FormMessage /></FormItem>
                         )} />
-                        <FormField control={form.control} name={\`pricingOptions.\${index}.includesFreeShipping\`} render={({ field }) => (
+                        <FormField control={form.control} name={`pricingOptions.${index}.includesFreeShipping`} render={({ field }) => (
                           <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 mt-8">
                             <FormLabel className="text-sm">Free Shipping</FormLabel>
                             <FormControl><Switch checked={field.value} onCheckedChange={field.onChange} /></FormControl>
@@ -211,29 +211,29 @@ export function ProductPageForm({ siteId, initialData, isLoading }: ProductPageF
                   {textReviews.fields.map((field, index) => (
                     <SortableItemWrapper key={field.id} id={field.id}>
                       <div className="grid grid-cols-2 gap-4 w-full">
-                        <FormField control={form.control} name={\`textReviews.\${index}.reviewerName\`} render={({ field }) => (
+                        <FormField control={form.control} name={`textReviews.${index}.reviewerName`} render={({ field }) => (
                           <FormItem><FormLabel>Reviewer Name</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
                         )} />
-                        <FormField control={form.control} name={\`textReviews.\${index}.headline\`} render={({ field }) => (
+                        <FormField control={form.control} name={`textReviews.${index}.headline`} render={({ field }) => (
                           <FormItem><FormLabel>Headline</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
                         )} />
-                        <FormField control={form.control} name={\`textReviews.\${index}.body\`} render={({ field }) => (
+                        <FormField control={form.control} name={`textReviews.${index}.body`} render={({ field }) => (
                           <FormItem className="col-span-2"><FormLabel>Review Body</FormLabel><FormControl><Textarea {...field} /></FormControl><FormMessage /></FormItem>
                         )} />
-                        <FormField control={form.control} name={\`textReviews.\${index}.rating\`} render={({ field }) => (
+                        <FormField control={form.control} name={`textReviews.${index}.rating`} render={({ field }) => (
                           <FormItem>
                             <FormLabel>Rating (1-5)</FormLabel>
                             <FormControl><Input type="number" min="1" max="5" {...field} onChange={e => field.onChange(parseInt(e.target.value)||5)} /></FormControl>
                             <FormMessage />
                           </FormItem>
                         )} />
-                        <FormField control={form.control} name={\`textReviews.\${index}.isVerified\`} render={({ field }) => (
+                        <FormField control={form.control} name={`textReviews.${index}.isVerified`} render={({ field }) => (
                           <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 mt-8">
                             <FormLabel className="text-sm">Verified Buyer</FormLabel>
                             <FormControl><Switch checked={field.value} onCheckedChange={field.onChange} /></FormControl>
                           </FormItem>
                         )} />
-                        <FormField control={form.control} name={\`textReviews.\${index}.avatarPublicId\`} render={({ field }) => (
+                        <FormField control={form.control} name={`textReviews.${index}.avatarPublicId`} render={({ field }) => (
                           <FormItem className="col-span-2"><FormLabel>Avatar Image</FormLabel><FormControl><ImagePicker value={field.value} onChange={field.onChange} siteId={siteId} /></FormControl><FormMessage /></FormItem>
                         )} />
                         <div className="col-span-2 flex justify-end">

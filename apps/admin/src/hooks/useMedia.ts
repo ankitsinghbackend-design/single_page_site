@@ -11,7 +11,7 @@ export function useGetMedia(siteId?: string, type?: string) {
       if (type) params.type = type;
       
       const res = await apiClient.get('/media', { params });
-      return res.data.data;
+      return res.data.data.items || [];
     }
   });
 }

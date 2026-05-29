@@ -52,7 +52,7 @@ export default function NewSitePage() {
     try {
       const newSite = await createSite(data);
       if (newSite && newSite.id) {
-        router.push(\`/sites/\${newSite.id}\`);
+        router.push(`/sites/${newSite.id}`);
       }
     } catch (error) {
       // Error is handled by the hook (toast)

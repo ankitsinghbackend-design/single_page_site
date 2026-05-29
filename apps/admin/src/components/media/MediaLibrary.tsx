@@ -96,7 +96,7 @@ export function MediaLibrary({ open, onOpenChange, siteId, accept = 'all', onSel
                   <button
                     key={type}
                     onClick={() => setFilterType(type)}
-                    className={\`px-3 py-1.5 text-sm font-medium rounded-md capitalize transition-colors \${filterType === type ? 'bg-white shadow-sm text-neutral-900' : 'text-neutral-500 hover:text-neutral-900'}\`}
+                    className={`px-3 py-1.5 text-sm font-medium rounded-md capitalize transition-colors ${filterType === type ? 'bg-white shadow-sm text-neutral-900' : 'text-neutral-500 hover:text-neutral-900'}`}
                     disabled={accept !== 'all' && type !== accept && type !== 'all'}
                   >
                     {type}
@@ -134,7 +134,7 @@ export function MediaLibrary({ open, onOpenChange, siteId, accept = 'all', onSel
             {/* Footer */}
             <div className="p-4 border-t shrink-0 flex items-center justify-between bg-white">
               <div className="text-sm text-neutral-500">
-                {selectedMedia ? \`1 item selected\` : 'No items selected'}
+                {selectedMedia ? `1 item selected` : 'No items selected'}
               </div>
               <div className="flex items-center gap-3">
                 <Button variant="outline" onClick={() => onOpenChange(false)}>Cancel</Button>

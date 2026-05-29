@@ -21,13 +21,13 @@ export function ImagePicker({ value, onChange, siteId, className }: ImagePickerP
     if (!value) return null;
     if (value.startsWith('http')) return value;
     const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || 'demo';
-    return \`https://res.cloudinary.com/\${cloudName}/image/upload/\${value}\`;
+    return `https://res.cloudinary.com/${cloudName}/image/upload/${value}`;
   }, [value]);
 
   const handleSelect = (media: any) => {
     // We typically store publicId to let the frontend/backend handle transformations,
     // but sometimes storing the URL is easier depending on the schema.
-    // The schemas use \`imagePublicId: z.string()\`, so we store the publicId.
+    // The schemas use `imagePublicId: z.string()`, so we store the publicId.
     onChange(media.publicId);
   };
 

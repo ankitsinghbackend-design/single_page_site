@@ -115,7 +115,7 @@ export default function SitesListPage() {
                   <TableRow key={site.id}>
                     <TableCell>
                       <div className="flex flex-col">
-                        <Link href={\`/sites/\${site.id}\`} className="font-semibold text-neutral-900 hover:text-primary transition-colors">
+                        <Link href={`/sites/${site.id}`} className="font-semibold text-neutral-900 hover:text-primary transition-colors">
                           {site.name}
                         </Link>
                         <span className="text-xs text-neutral-500 font-mono mt-0.5">/{site.slug}</span>
@@ -139,7 +139,7 @@ export default function SitesListPage() {
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
-                          <Link href={\`/sites/\${site.id}\`}>
+                          <Link href={`/sites/${site.id}`}>
                             <DropdownMenuItem className="cursor-pointer">
                               <LayoutTemplate className="mr-2 h-4 w-4" /> Open Editor
                             </DropdownMenuItem>

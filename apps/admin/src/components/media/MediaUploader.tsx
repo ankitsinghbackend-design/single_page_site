@@ -100,7 +100,7 @@ export function MediaUploader({ siteId, accept = 'all', onUpload }: MediaUploade
                 <div className="flex justify-between items-center mb-1">
                   <p className="text-sm font-medium text-neutral-900 truncate">{upload.file.name}</p>
                   <span className="text-xs text-neutral-500">
-                    {upload.status === 'success' ? '100%' : \`\${upload.progress}%\`}
+                    {upload.status === 'success' ? '100%' : `${upload.progress}%`}
                   </span>
                 </div>
                 {upload.status === 'error' ? (

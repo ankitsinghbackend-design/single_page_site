@@ -52,12 +52,12 @@ export default function SiteOverviewPage() {
   };
 
   const editors = [
-    { title: 'Landing Page', icon: FileText, href: \`/sites/\${site.id}/landing-page\`, desc: 'Hero, benefits, and main CTA' },
-    { title: 'Product Page', icon: ShoppingCart, href: \`/sites/\${site.id}/product-page\`, desc: 'Pricing, checkout, and details' },
-    { title: 'Contact Page', icon: Mail, href: \`/sites/\${site.id}/contact-page\`, desc: 'Support info and contact form' },
-    { title: 'Track Order', icon: Truck, href: \`/sites/\${site.id}/track-order-page\`, desc: 'Order status lookup interface' },
-    { title: 'Footer', icon: Settings, href: \`/sites/\${site.id}/footer\`, desc: 'Global footer links and info' },
-    { title: 'Media Library', icon: ImageIcon, href: \`/sites/\${site.id}/media\`, desc: 'Site-specific images and videos' },
+    { title: 'Landing Page', icon: FileText, href: `/sites/${site.id}/landing-page`, desc: 'Hero, benefits, and main CTA' },
+    { title: 'Product Page', icon: ShoppingCart, href: `/sites/${site.id}/product-page`, desc: 'Pricing, checkout, and details' },
+    { title: 'Contact Page', icon: Mail, href: `/sites/${site.id}/contact-page`, desc: 'Support info and contact form' },
+    { title: 'Track Order', icon: Truck, href: `/sites/${site.id}/track-order-page`, desc: 'Order status lookup interface' },
+    { title: 'Footer', icon: Settings, href: `/sites/${site.id}/footer`, desc: 'Global footer links and info' },
+    { title: 'Media Library', icon: ImageIcon, href: `/sites/${site.id}/media`, desc: 'Site-specific images and videos' },
   ];
 
   return (
@@ -78,7 +78,7 @@ export default function SiteOverviewPage() {
             {site.status === 'published' ? 'Unpublish' : 'Publish'}
           </Button>
           {site.status === 'published' && (
-            <a href={\`http://localhost:3000/\${site.slug}\`} target="_blank" rel="noopener noreferrer">
+            <a href={`http://localhost:3000/${site.slug}`} target="_blank" rel="noopener noreferrer">
               <Button variant="secondary">
                 <ExternalLink className="mr-2 h-4 w-4" /> Preview
               </Button>
@@ -114,7 +114,7 @@ export default function SiteOverviewPage() {
                 <Clock className="mr-1.5 h-3.5 w-3.5" />
                 Updated recently
               </div>
-              <Link href={editor.href} className="absolute inset-0" aria-label={\`Edit \${editor.title}\`} />
+              <Link href={editor.href} className="absolute inset-0" aria-label={`Edit ${editor.title}`} />
             </div>
           ))}
         </div>

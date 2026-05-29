@@ -61,7 +61,7 @@ export function LandingPageForm({ siteId, initialData, isLoading }: LandingPageF
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 pb-24">
-        <Accordion type="multiple" defaultValue={["announcement", "hero", "stats", "reviews"]} className="w-full">
+        <Accordion multiple defaultValue={["announcement", "hero", "stats", "reviews"]} className="w-full">
           
           {/* Section 1: Announcement Bar */}
           <AccordionItem value="announcement" className="border bg-white rounded-lg mb-4 px-4">
@@ -226,7 +226,7 @@ export function LandingPageForm({ siteId, initialData, isLoading }: LandingPageF
                 <div key={field.id} className="grid grid-cols-3 gap-4 items-end bg-neutral-50 p-4 rounded-md border">
                   <FormField
                     control={form.control}
-                    name={\`stats.\${index}.percentage\`}
+                    name={`stats.${index}.percentage`}
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>Percentage (Number)</FormLabel>
@@ -243,7 +243,7 @@ export function LandingPageForm({ siteId, initialData, isLoading }: LandingPageF
                   />
                   <FormField
                     control={form.control}
-                    name={\`stats.\${index}.description\`}
+                    name={`stats.${index}.description`}
                     render={({ field }) => (
                       <FormItem className="col-span-2">
                         <FormLabel>Description Text</FormLabel>

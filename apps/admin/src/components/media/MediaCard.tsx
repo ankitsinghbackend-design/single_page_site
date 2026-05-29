@@ -82,8 +82,8 @@ export function MediaCard({ media, isSelected, onSelect, onDeleteSuccess }: Medi
           <span>{formatBytes(media.bytes)}</span>
           <span>
             {isVideo && media.duration 
-              ? \`\${Math.round(media.duration)}s\` 
-              : \`\${media.width}x\${media.height}\`
+              ? `${Math.round(media.duration)}s` 
+              : `${media.width}x${media.height}`
             }
           </span>
         </div>

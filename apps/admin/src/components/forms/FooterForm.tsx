@@ -98,7 +98,7 @@ export function FooterForm({ siteId, initialData, isLoading }: FooterFormProps) 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 pb-24">
-        <Accordion type="multiple" defaultValue={["general", "links", "social"]} className="w-full">
+        <Accordion multiple defaultValue={["general", "links", "social"]} className="w-full">
           
           <AccordionItem value="general" className="border bg-white rounded-lg mb-4 px-4">
             <AccordionTrigger className="font-semibold hover:no-underline">General Settings</AccordionTrigger>
@@ -159,10 +159,10 @@ export function FooterForm({ siteId, initialData, isLoading }: FooterFormProps) 
                   {quickLinks.fields.map((field, index) => (
                     <SortableItemWrapper key={field.id} id={field.id}>
                       <div className="flex items-center gap-4 w-full">
-                        <FormField control={form.control} name={\`quickLinks.\${index}.label\`} render={({ field }) => (
+                        <FormField control={form.control} name={`quickLinks.${index}.label`} render={({ field }) => (
                           <FormItem className="flex-1"><FormLabel>Label</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
                         )} />
-                        <FormField control={form.control} name={\`quickLinks.\${index}.url\`} render={({ field }) => (
+                        <FormField control={form.control} name={`quickLinks.${index}.url`} render={({ field }) => (
                           <FormItem className="flex-[2]"><FormLabel>URL</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
                         )} />
                         <Button type="button" variant="ghost" size="icon" className="mt-8 text-red-500" onClick={() => quickLinks.remove(index)}>
@@ -187,7 +187,7 @@ export function FooterForm({ siteId, initialData, isLoading }: FooterFormProps) 
                   {socialLinks.fields.map((field, index) => (
                     <SortableItemWrapper key={field.id} id={field.id}>
                       <div className="flex items-center gap-4 w-full">
-                        <FormField control={form.control} name={\`socialLinks.\${index}.platform\`} render={({ field }) => (
+                        <FormField control={form.control} name={`socialLinks.${index}.platform`} render={({ field }) => (
                           <FormItem className="flex-1">
                             <FormLabel>Platform</FormLabel>
                             <Select onValueChange={field.onChange} defaultValue={field.value}>
@@ -206,7 +206,7 @@ export function FooterForm({ siteId, initialData, isLoading }: FooterFormProps) 
                             <FormMessage />
                           </FormItem>
                         )} />
-                        <FormField control={form.control} name={\`socialLinks.\${index}.url\`} render={({ field }) => (
+                        <FormField control={form.control} name={`socialLinks.${index}.url`} render={({ field }) => (
                           <FormItem className="flex-[2]"><FormLabel>URL</FormLabel><FormControl><Input {...field} type="url" placeholder="https://" /></FormControl><FormMessage /></FormItem>
                         )} />
                         <Button type="button" variant="ghost" size="icon" className="mt-8 text-red-500" onClick={() => socialLinks.remove(index)}>
