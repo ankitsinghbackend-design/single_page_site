@@ -1,6 +1,6 @@
 import { db } from '../../config/db';
 import { media } from '../../db/schema';
-import { eq, and, desc } from 'drizzle-orm';
+import { eq, and, or, isNull, desc } from 'drizzle-orm';
 import { uploadBuffer, deleteAsset, getSignedUploadUrl } from '../../utils/cloudinary.utils';
 
 export const mediaService = {
@@ -58,7 +58,12 @@ export const mediaService = {
   async listMedia(siteId?: string, resourceType?: string, page = 1, pageSize = 20) {
     const conditions = [];
     if (siteId) {
-      conditions.push(eq(media.siteId, siteId));
+      conditions.push(
+        or(
+          eq(media.siteId, siteId),
+          isNull(media.siteId)
+        )
+      );
     }
     if (resourceType) {
       conditions.push(eq(media.resourceType, resourceType));

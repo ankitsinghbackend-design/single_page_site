@@ -15,12 +15,13 @@ export default function DashboardHome() {
   const { data: sitesData, isLoading: sitesLoading } = useGetSites(1, 5);
   const { data: mediaData, isLoading: mediaLoading } = useGetMedia();
 
-  const sites = sitesData?.items || [];
-  const totalSites = sitesData?.total || 0;
-  // Fallbacks if backend doesn't provide these counts yet
-  const publishedSites = sites.filter((s: any) => s.status === 'published').length || 0;
-  const draftSites = sites.filter((s: any) => s.status === 'draft').length || 0;
-  const totalMedia = mediaData?.length || 0; // If mediaData is an array
+  const sites = sitesData?.data || [];
+  const totalSites = sitesData?.pagination?.total || 0;
+  
+  // Use backend status counts for accuracy (or fallback to 0)
+  const publishedSites = sitesData?.statusCounts?.published || 0;
+  const draftSites = sitesData?.statusCounts?.draft || 0;
+  const totalMedia = mediaData?.length || 0;
 
   return (
     <div className="space-y-8">

@@ -7,7 +7,7 @@ export function useGetSites(page = 1, pageSize = 10) {
     queryKey: ['sites', page, pageSize],
     queryFn: async () => {
       const res = await apiClient.get('/sites', { params: { page, pageSize } });
-      return res.data.data;
+      return res.data;
     }
   });
 }

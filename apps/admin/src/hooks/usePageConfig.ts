@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "@/lib/api-client";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export type PageType = "landing-page" | "product-page" | "contact-page" | "track-order-page" | "footer";
 
@@ -17,6 +18,8 @@ export function useGetPageConfig(siteId: string, pageType: PageType) {
 
 export function useUpsertPageConfig(siteId: string, pageType: PageType) {
   const queryClient = useQueryClient();
+  const router = useRouter();
+  
   return useMutation({
     mutationFn: async (data: any) => {
       const res = await apiClient.put(`/sites/${siteId}/${pageType}`, data);
@@ -25,6 +28,7 @@ export function useUpsertPageConfig(siteId: string, pageType: PageType) {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['pageConfig', siteId, pageType] });
       toast.success("Saved successfully");
+      router.push(`/sites/${siteId}`);
     },
     onError: (err: any) => {
       toast.error(err.response?.data?.error || "Failed to save configuration");

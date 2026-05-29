@@ -49,20 +49,20 @@ export const TextReviewSchema = z.object({
 });
 
 export const ProductPageSchema = z.object({
-  productName: z.string(),
-  price: z.number(),
-  originalPrice: z.number(),
-  stockBadge: z.string(),
-  description: z.string(),
-  benefits: z.array(BenefitItemSchema),
-  pricingOptions: z.array(PricingOptionSchema),
-  autoRefillEnabled: z.boolean(),
-  autoRefillLabel: z.string(),
-  whyModernFood: WhyModernFoodSchema,
-  naturesGold: NaturesGoldSchema,
-  videoTestimonials: z.array(VideoTestimonialSchema),
-  textReviews: z.array(TextReviewSchema),
-  testimonialSectionHeading: z.string(),
+  productName: z.string().optional().default(''),
+  price: z.number().optional().default(0),
+  originalPrice: z.number().optional().default(0),
+  stockBadge: z.string().optional().default(''),
+  description: z.string().optional().default(''),
+  benefits: z.array(BenefitItemSchema).optional().default([]),
+  pricingOptions: z.array(PricingOptionSchema).optional().default([]),
+  autoRefillEnabled: z.boolean().optional().default(false),
+  autoRefillLabel: z.string().optional().default(''),
+  whyModernFood: WhyModernFoodSchema.optional().nullable(),
+  naturesGold: NaturesGoldSchema.optional().nullable(),
+  videoTestimonials: z.array(VideoTestimonialSchema).optional().default([]),
+  textReviews: z.array(TextReviewSchema).optional().default([]),
+  testimonialSectionHeading: z.string().optional().default(''),
 });
 
 export type PricingOptionType = z.infer<typeof PricingOptionSchema>;

@@ -92,13 +92,11 @@ export function MediaCard({ media, isSelected, onSelect, onDeleteSuccess }: Medi
       {/* Actions Overlay */}
       <div className="absolute top-2 left-2 opacity-0 group-hover:opacity-100 transition-opacity">
         <AlertDialog>
-          <AlertDialogTrigger asChild>
-            <button 
-              className="rounded-md bg-white/90 p-1.5 text-neutral-500 hover:bg-red-50 hover:text-red-600 shadow-sm transition-colors"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <Trash2 className="h-4 w-4" />
-            </button>
+          <AlertDialogTrigger 
+            className="rounded-md bg-white/90 p-1.5 text-neutral-500 hover:bg-red-50 hover:text-red-600 shadow-sm transition-colors"
+            onClick={(e: React.MouseEvent) => e.stopPropagation()}
+          >
+            <Trash2 className="h-4 w-4" />
           </AlertDialogTrigger>
           <AlertDialogContent>
             <AlertDialogHeader>

@@ -22,7 +22,7 @@ export default function SitesListPage() {
   const { mutate: updateSite } = useUpdateSite();
   const { mutate: deleteSite } = useDeleteSite();
 
-  const sites = sitesData?.items || [];
+  const sites = sitesData?.data || [];
 
   const filteredSites = React.useMemo(() => {
     let result = sites;
