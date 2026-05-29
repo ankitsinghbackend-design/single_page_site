@@ -87,6 +87,16 @@ export function ProductPageForm({ siteId, initialData, isLoading }: ProductPageF
     upsertConfig(data);
   };
 
+  const onError = (errors: any) => {
+    console.error("Form validation errors:", errors);
+    // Find the first error message to show to the user
+    const firstError = Object.values(errors)[0] as any;
+    const message = firstError?.message || firstError?.root?.message || "Please check the form for errors";
+    import('sonner').then(({ toast }) => {
+      toast.error(`Validation Error: ${message}`);
+    });
+  };
+
   const handleDragEnd = (event: any, fieldArray: any) => {
     const { active, over } = event;
     if (active.id !== over.id) {
@@ -102,7 +112,7 @@ export function ProductPageForm({ siteId, initialData, isLoading }: ProductPageF
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 pb-24">
+      <form onSubmit={form.handleSubmit(onSubmit, onError)} className="space-y-6 pb-24">
         <Accordion multiple defaultValue={["basics", "benefits", "pricing", "refill", "modern-food", "natures-gold", "video-testimonials", "text-reviews"]} className="w-full">
 
           {/* SECTION 1: Product Basics */}
@@ -114,10 +124,10 @@ export function ProductPageForm({ siteId, initialData, isLoading }: ProductPageF
               )} />
               <div className="grid grid-cols-2 gap-4">
                 <FormField control={form.control} name="price" render={({ field }) => (
-                  <FormItem><FormLabel>Price ($)</FormLabel><FormControl><Input type="number" {...field} onChange={e => field.onChange(parseFloat(e.target.value) || 0)} /></FormControl><FormMessage /></FormItem>
+                  <FormItem><FormLabel>Price ($)</FormLabel><FormControl><Input type="number" min="0" step="0.01" {...field} onChange={e => field.onChange(parseFloat(e.target.value) || 0)} /></FormControl><FormMessage /></FormItem>
                 )} />
                 <FormField control={form.control} name="originalPrice" render={({ field }) => (
-                  <FormItem><FormLabel>Original Price ($)</FormLabel><FormControl><Input type="number" {...field} onChange={e => field.onChange(parseFloat(e.target.value) || 0)} /></FormControl><FormMessage /></FormItem>
+                  <FormItem><FormLabel>Original Price ($)</FormLabel><FormControl><Input type="number" min="0" step="0.01" {...field} onChange={e => field.onChange(parseFloat(e.target.value) || 0)} /></FormControl><FormMessage /></FormItem>
                 )} />
               </div>
               <FormField control={form.control} name="stockBadge" render={({ field }) => (
@@ -174,10 +184,10 @@ export function ProductPageForm({ siteId, initialData, isLoading }: ProductPageF
                           <FormItem><FormLabel>Badge (Optional)</FormLabel><FormControl><Input {...field} placeholder="Most Popular" /></FormControl></FormItem>
                         )} />
                         <FormField control={form.control} name={`pricingOptions.${index}.price`} render={({ field }) => (
-                          <FormItem><FormLabel>Price</FormLabel><FormControl><Input type="number" {...field} onChange={e => field.onChange(parseFloat(e.target.value)||0)} /></FormControl><FormMessage /></FormItem>
+                          <FormItem><FormLabel>Price</FormLabel><FormControl><Input type="number" min="0" step="0.01" {...field} onChange={e => field.onChange(parseFloat(e.target.value)||0)} /></FormControl><FormMessage /></FormItem>
                         )} />
                         <FormField control={form.control} name={`pricingOptions.${index}.originalPrice`} render={({ field }) => (
-                          <FormItem><FormLabel>Original Price</FormLabel><FormControl><Input type="number" {...field} onChange={e => field.onChange(parseFloat(e.target.value)||0)} /></FormControl><FormMessage /></FormItem>
+                          <FormItem><FormLabel>Original Price</FormLabel><FormControl><Input type="number" min="0" step="0.01" {...field} onChange={e => field.onChange(parseFloat(e.target.value)||0)} /></FormControl><FormMessage /></FormItem>
                         )} />
                         <FormField control={form.control} name={`pricingOptions.${index}.savePct`} render={({ field }) => (
                           <FormItem><FormLabel>Save Percentage</FormLabel><FormControl><Input type="number" {...field} onChange={e => field.onChange(parseInt(e.target.value)||0)} /></FormControl><FormMessage /></FormItem>

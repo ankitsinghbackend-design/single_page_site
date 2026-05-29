@@ -17,20 +17,20 @@ export const productPageService = {
 
     // Map database properties (which may be null initially) to return schema shape
     return {
-      productName: record.productName,
-      price: record.price ? parseFloat(record.price) : null,
-      originalPrice: record.originalPrice ? parseFloat(record.originalPrice) : null,
-      stockBadge: record.stockBadge,
-      description: record.descriptionJson !== null ? record.descriptionJson : null,
-      benefits: record.benefitsJson || null,
-      pricingOptions: record.pricingOptionsJson || null,
+      productName: record.productName || "",
+      price: record.price ? parseFloat(record.price) : 0,
+      originalPrice: record.originalPrice ? parseFloat(record.originalPrice) : 0,
+      stockBadge: record.stockBadge || "",
+      description: record.descriptionJson !== null ? record.descriptionJson : "",
+      benefits: record.benefitsJson || [],
+      pricingOptions: record.pricingOptionsJson || [],
       autoRefillEnabled: record.autoRefillEnabled,
       autoRefillLabel: record.autoRefillLabel,
       whyModernFood: record.whyModernFoodJson || null,
       naturesGold: record.naturesGoldJson || null,
-      videoTestimonials: record.videoTestimonialsJson || null,
-      textReviews: record.textReviewsJson || null,
-      testimonialSectionHeading: record.testimonialSectionHeading,
+      videoTestimonials: record.videoTestimonialsJson || [],
+      textReviews: record.textReviewsJson || [],
+      testimonialSectionHeading: record.testimonialSectionHeading || "",
     };
   },
 

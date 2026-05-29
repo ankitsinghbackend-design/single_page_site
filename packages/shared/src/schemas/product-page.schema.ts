@@ -3,9 +3,9 @@ import { z } from 'zod';
 export const PricingOptionSchema = z.object({
   label: z.string(),
   badge: z.string().optional(),
-  savePct: z.number(),
-  price: z.number(),
-  originalPrice: z.number(),
+  savePct: z.number().min(0, "Cannot be negative"),
+  price: z.number().min(0.01, "Price must be > 0"),
+  originalPrice: z.number().min(0, "Cannot be negative"),
   includesFreeShipping: z.boolean(),
 });
 
@@ -50,8 +50,8 @@ export const TextReviewSchema = z.object({
 
 export const ProductPageSchema = z.object({
   productName: z.string().optional().default(''),
-  price: z.number().optional().default(0),
-  originalPrice: z.number().optional().default(0),
+  price: z.number().min(0.01, "Price must be > 0").optional().default(0.01),
+  originalPrice: z.number().min(0, "Cannot be negative").optional().default(0),
   stockBadge: z.string().optional().default(''),
   description: z.string().optional().default(''),
   benefits: z.array(BenefitItemSchema).optional().default([]),
